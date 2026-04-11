@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dr. Esteban Uribe Bojanini · Dermatólogo Medellín</title>
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --negro: #111111;
+      --blanco: #ffffff;
+      --gris: #6b6b6b;
+      --gris-claro: #f5f5f3;
+      --acento: #c8a96e;
+      --fuente: 'Georgia', serif;
+      --sans: 'Helvetica Neue', Arial, sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); color: var(--negro); background: var(--blanco); }
+
+    /* ── Tipografía ── */
+    h1, h2, h3 { font-family: var(--fuente); font-weight: 400; line-height: 1.2; }
+    h1 { font-size: clamp(2.2rem, 5vw, 4rem); }
+    h2 { font-size: clamp(1.6rem, 3vw, 2.8rem); }
+    h3 { font-size: 1.25rem; }
+    p  { line-height: 1.7; color: var(--gris); }
+    em { font-style: italic; }
+
+    /* ── Nav ── */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      background: var(--negro);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5%;
+      height: 60px;
+    }
+    .nav-logo { color: var(--blanco); font-family: var(--fuente); font-size: 1.1rem; text-decoration: none; }
+    .nav-logo em { color: var(--acento); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { color: #aaa; text-decoration: none; font-size: 0.85rem; letter-spacing: 0.05em; transition: color .2s; }
+    .nav-links a:hover { color: var(--blanco); }
+    .nav-right { display: flex; align-items: center; gap: 1.2rem; }
+    .nav-idioma { color: #aaa; font-size: 0.8rem; cursor: pointer; user-select: none; transition: color .2s; letter-spacing: 0.04em; }
+    .nav-idioma:hover { color: var(--blanco); }
+    .btn-cita-nav {
+      background: var(--acento); color: var(--blanco);
+      text-decoration: none; padding: 0.45rem 1.1rem;
+      font-size: 0.82rem; border-radius: 2px; letter-spacing: 0.05em;
+      transition: opacity .2s;
+    }
+    .btn-cita-nav:hover { opacity: .85; }
+
+    /* ── Sección base ── */
+    section { padding: 100px 5%; }
+    .etiqueta {
+      display: inline-block; font-size: 0.72rem; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--gris); margin-bottom: 1.4rem;
+    }
+
+    /* ── Hero ── */
+    #inicio {
+      min-height: 100vh;
+      background: var(--negro);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding-top: 60px;
+      gap: 0;
+    }
+    .hero-texto {
+      padding: 80px 5% 80px 5%;
+    }
+    .hero-etiqueta { color: #666; }
+    .hero-texto h1 { color: var(--blanco); margin-bottom: 1.2rem; }
+    .hero-texto h1 em { color: var(--acento); }
+    .hero-texto p { color: #999; max-width: 480px; margin-bottom: 2rem; font-size: 1.05rem; }
+    .hero-botones { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 3rem; }
+    .btn-principal {
+      background: var(--acento); color: var(--blanco);
+      text-decoration: none; padding: 0.85rem 1.8rem;
+      font-size: 0.9rem; border-radius: 2px; transition: opacity .2s;
+    }
+    .btn-principal:hover { opacity: .85; }
+    .btn-secundario {
+      border: 1px solid #444; color: #bbb;
+      text-decoration: none; padding: 0.85rem 1.8rem;
+      font-size: 0.9rem; border-radius: 2px; transition: border-color .2s, color .2s;
+    }
+    .btn-secundario:hover { border-color: var(--acento); color: var(--acento); }
+    .hero-stats { display: flex; gap: 2.5rem; }
+    .stat strong { display: block; color: var(--blanco); font-size: 1.6rem; font-family: var(--fuente); }
+    .stat small  { color: var(--gris); font-size: 0.78rem; letter-spacing: 0.05em; }
+    .stat span   { display: block; color: #555; font-size: 0.72rem; }
+
+    .hero-foto {
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+    }
+    .hero-foto img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      filter: grayscale(100%);
+    }
+
+    /* ── Servicios ── */
+    #servicios { background: var(--gris-claro); }
+    .servicios-intro { max-width: 600px; margin-bottom: 4rem; }
+    .servicios-intro h2 { margin-bottom: 1rem; }
+
+    .grid-servicios-nuevo {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border-top: 1px solid #ddd;
+    }
+    .servicio-columna {
+      padding: 3.5rem 4rem 3.5rem 0;
+      border-right: 1px solid #ddd;
+    }
+    .servicio-columna:last-child {
+      border-right: none;
+      padding-left: 4rem;
+      padding-right: 0;
+    }
+    .servicio-num {
+      display: block;
+      font-family: var(--fuente);
+      font-size: 4rem;
+      color: #ddd;
+      line-height: 1;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.02em;
+    }
+    .servicio-columna h3 {
+      font-size: 1.9rem;
+      font-family: var(--fuente);
+      font-weight: 400;
+      line-height: 1.2;
+      margin-bottom: 1.2rem;
+      color: var(--negro);
+    }
+    .servicio-columna > p {
+      font-size: 0.92rem;
+      line-height: 1.75;
+      color: var(--gris);
+      margin-bottom: 2rem;
+      max-width: 420px;
+    }
+    .servicio-lista {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+    .servicio-lista li {
+      font-size: 0.88rem;
+      color: var(--gris);
+      padding-left: 2rem;
+      position: relative;
+    }
+    .servicio-lista li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: #bbb;
+    }
+
+    /* ── Foto strip ── */
+    .foto-strip {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 3px;
+    }
+    .foto-strip-item {
+      aspect-ratio: 3 / 4;
+      overflow: hidden;
+    }
+    .foto-strip-item img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      filter: grayscale(20%);
+      transition: filter .4s, transform .5s;
+    }
+    .foto-strip-item:hover img {
+      filter: grayscale(0%);
+      transform: scale(1.04);
+    }
+
+    /* ── Resultados ── */
+    #resultados { background: var(--negro); }
+    .resultados-intro { max-width: 600px; margin-bottom: 3rem; }
+    .resultados-intro .etiqueta { color: #555; }
+    .resultados-intro h2 { color: var(--blanco); margin-bottom: 1rem; }
+    .resultados-intro p  { color: #888; }
+    .resultados-nota {
+      margin-top: 3rem;
+      border-top: 1px solid #222;
+      padding-top: 2rem;
+    }
+    .resultados-nota p { color: #555; font-size: 0.85rem; max-width: 500px; }
+
+    /* Galería de resultados */
+    .galeria-resultados {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+    .resultado-item:last-child {
+      grid-column: 1 / -1;
+      max-width: calc(50% - 5px);
+      margin: 0 auto;
+    }
+    .resultado-item {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 16 / 9;
+      background: #1a1a1a;
+      cursor: pointer;
+      border: 1px solid #222;
+    }
+    .resultado-item img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center center;
+      opacity: 0.92;
+      transition: opacity .4s, transform .5s;
+      display: block;
+    }
+    .resultado-item:hover img {
+      opacity: 1;
+      transform: scale(1.04);
+    }
+    .resultado-label {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 0.6rem 1rem;
+      background: linear-gradient(transparent, rgba(0,0,0,0.7));
+      color: var(--acento);
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-family: var(--sans);
+      opacity: 0;
+      transition: opacity .3s;
+    }
+    .resultado-item:hover .resultado-label { opacity: 1; }
+
+    /* Lightbox */
+    .lightbox {
+      display: none;
+      position: fixed; inset: 0; z-index: 999;
+      background: rgba(0,0,0,0.92);
+      align-items: center; justify-content: center;
+    }
+    .lightbox.activo { display: flex; }
+    .lightbox img {
+      max-width: 90vw; max-height: 88vh;
+      object-fit: contain;
+      border: 1px solid #333;
+    }
+    .lightbox-cerrar {
+      position: absolute; top: 1.5rem; right: 2rem;
+      color: #fff; font-size: 2rem; cursor: pointer;
+      background: none; border: none; line-height: 1;
+      opacity: .7; transition: opacity .2s;
+    }
+    .lightbox-cerrar:hover { opacity: 1; }
+    .lightbox-nav {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      background: none; border: 1px solid #444; color: #fff;
+      font-size: 1.5rem; padding: 0.6rem 1rem; cursor: pointer;
+      transition: border-color .2s;
+    }
+    .lightbox-nav:hover { border-color: var(--acento); color: var(--acento); }
+    .lightbox-prev { left: 2rem; }
+    .lightbox-next { right: 2rem; }
+
+    /* ── Sobre el Doctor ── */
+    #sobre {
+      background: var(--blanco);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      padding: 0;
+    }
+    .sobre-foto { overflow: hidden; min-height: 600px; }
+    .sobre-foto img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .sobre-texto {
+      padding: 100px 6%;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .sobre-texto h2 { margin-bottom: 0.5rem; }
+    .sobre-nombre { color: var(--acento); font-family: var(--fuente); font-size: 1.1rem; margin-bottom: 1.5rem; }
+    .sobre-texto p { margin-bottom: 1rem; }
+    .sobre-credenciales {
+      margin-top: 2rem;
+      display: flex; flex-direction: column; gap: 0.8rem;
+    }
+    .credencial {
+      display: flex; align-items: center; gap: 0.8rem;
+      font-size: 0.9rem; color: var(--gris);
+    }
+    .credencial::before {
+      content: ''; width: 8px; height: 8px;
+      border-radius: 50%; background: var(--acento); flex-shrink: 0;
+    }
+
+    /* ── Contacto ── */
+    #contacto {
+      background: var(--negro);
+      text-align: center;
+    }
+    #contacto h2 { color: var(--blanco); margin-bottom: 1rem; }
+    #contacto p  { color: #888; max-width: 480px; margin: 0 auto 2.5rem; }
+    .btn-whatsapp {
+      display: inline-flex; align-items: center; gap: 0.7rem;
+      background: #25D366; color: var(--blanco);
+      text-decoration: none; padding: 1rem 2.2rem;
+      font-size: 1rem; border-radius: 2px; transition: opacity .2s;
+    }
+    .btn-whatsapp:hover { opacity: .88; }
+    .contacto-info {
+      margin-top: 3rem;
+      display: flex; justify-content: center; gap: 3rem;
+      flex-wrap: wrap;
+    }
+    .contacto-dato { color: #555; font-size: 0.85rem; }
+    .contacto-dato strong { display: block; color: #888; margin-bottom: 0.3rem; letter-spacing: 0.08em; font-size: 0.72rem; text-transform: uppercase; }
+
+    /* ── Footer ── */
+    footer {
+      background: #0a0a0a;
+      padding: 2rem 5%;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    footer p { color: #444; font-size: 0.8rem; }
+    .footer-logo { color: #444; font-family: var(--fuente); font-size: 1rem; }
+    .footer-logo em { color: #555; }
+
+
+    /* ════════════════════════════════════════
+       RESPONSIVE — solo afecta móvil (≤768px)
+       La desktop NO se toca
+    ════════════════════════════════════════ */
+    @media (max-width: 768px) {
+
+      /* Nav */
+      .nav-links { display: none; }
+      .nav-idioma { font-size: 0.72rem; }
+      .btn-cita-nav { padding: 0.4rem 0.9rem; font-size: 0.78rem; }
+
+      /* Hero: foto arriba, texto abajo */
+      #inicio {
+        display: flex !important;
+        flex-direction: column !important;
+        min-height: unset;
+        padding-top: 60px;
+      }
+      .hero-foto {
+        order: -1;
+        width: 100%;
+        height: 80vw !important;
+        min-height: 280px;
+      }
+      .hero-foto img {
+        object-position: center 15% !important;
+      }
+      .hero-texto {
+        order: 1;
+        padding: 2.5rem 6% 3rem;
+        width: 100%;
+      }
+      .hero-texto h1 { font-size: clamp(2rem, 8vw, 2.8rem); }
+      .hero-texto p  { font-size: 0.95rem; }
+      .hero-botones  { flex-direction: column; gap: 0.75rem; }
+      .btn-principal,
+      .btn-secundario { text-align: center; padding: 0.85rem 1.2rem; }
+      .hero-stats { gap: 1.5rem; flex-wrap: wrap; }
+      .stat strong { font-size: 1.3rem; }
+
+      /* Secciones: menos padding */
+      section { padding: 60px 6%; }
+
+      /* Servicios: una columna — selectores fuertes */
+      #servicios .grid-servicios-nuevo {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 0 !important;
+      }
+      #servicios .servicio-columna {
+        padding: 2.5rem 0 !important;
+        border-right: none !important;
+        border-bottom: 1px solid #ddd;
+        width: 100% !important;
+        min-width: 0 !important;
+      }
+      #servicios .servicio-columna:last-child {
+        border-bottom: none;
+        padding-left: 0 !important;
+      }
+      .servicio-num { font-size: 3rem; }
+      .servicio-columna h3 { font-size: 1.5rem; }
+
+      /* Foto strip */
+      .foto-strip {
+        grid-template-columns: repeat(3, 1fr) !important;
+      }
+      .foto-strip-item { aspect-ratio: 2 / 3; }
+
+      /* Resultados: una columna */
+      .galeria-resultados {
+        grid-template-columns: 1fr !important;
+      }
+      .resultado-item { aspect-ratio: 16 / 9; }
+      .resultado-item:last-child {
+        grid-column: auto !important;
+        max-width: 100% !important;
+        margin: 0;
+      }
+
+      /* Lightbox en móvil */
+      .lightbox-nav { padding: 0.4rem 0.7rem; font-size: 1.2rem; }
+      .lightbox-prev { left: 0.5rem; }
+      .lightbox-next { right: 0.5rem; }
+
+      /* Sobre el doctor: una columna */
+      #sobre {
+        display: flex !important;
+        flex-direction: column !important;
+        padding: 0 !important;
+      }
+      .sobre-foto {
+        order: -1;
+        min-height: 70vw;
+        width: 100%;
+      }
+      .sobre-texto {
+        order: 1;
+        padding: 2.5rem 6% !important;
+        width: 100%;
+      }
+      .sobre-texto h2 { font-size: 1.6rem; }
+
+      /* Contacto */
+      #contacto { padding: 60px 6%; }
+      .contacto-info { flex-direction: column; gap: 1.2rem; align-items: center; }
+      .btn-whatsapp { width: 100%; justify-content: center; box-sizing: border-box; }
+
+      /* Footer */
+      footer {
+        justify-content: center;
+        text-align: center;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════ NAV ══════════════════════════ -->
+<nav>
+  <a href="#inicio" class="nav-logo">Uribe <em>Bojanini</em></a>
+
+  <ul class="nav-links">
+    <li><a href="#servicios" data-es="Servicios" data-en="Services">Servicios</a></li>
+    <li><a href="#resultados" data-es="Resultados" data-en="Results">Resultados</a></li>
+    <li><a href="#sobre" data-es="El Doctor" data-en="The Doctor">El Doctor</a></li>
+    <li><a href="#contacto" data-es="Agendar cita" data-en="Book appointment">Agendar cita</a></li>
+  </ul>
+
+  <div class="nav-right">
+    <span class="nav-idioma" id="btn-idioma">Español / Inglés</span>
+    <a class="btn-cita-nav"
+       href="https://api.whatsapp.com/send?phone=573138985232&text=Hola,%20quisiera%20agendar%20una%20cita."
+       target="_blank" data-es="Cita" data-en="Book">Cita</a>
+  </div>
+</nav>
+
+
+<!-- ══════════════════════════ HERO ══════════════════════════ -->
+<section id="inicio">
+  <div class="hero-texto">
+    <span class="etiqueta hero-etiqueta" data-es="Dermatología · Medellín · Colombia" data-en="Dermatology · Medellín · Colombia">Dermatología · Medellín · Colombia</span>
+
+    <h1>Dr. Esteban Uribe <em>Bojanini</em></h1>
+
+    <p data-es="Médico dermatólogo de la Universidad CES en Medellín. Especialista en tratar enfermedades de la piel y pelo. Con un enfoque integral, con amplia experiencia y buen servicio." data-en="Dermatologist from Universidad CES in Medellín. Specialist in skin and hair conditions. With a comprehensive approach, extensive experience and excellent service.">Médico dermatólogo de la Universidad CES en Medellín. Especialista en tratar enfermedades de la piel y pelo. Con un enfoque integral, con amplia experiencia y buen servicio.</p>
+
+    <div class="hero-botones">
+      <a class="btn-principal"
+         href="https://api.whatsapp.com/send?phone=573138985232&text=Hola,%20quisiera%20agendar%20una%20cita."
+         target="_blank" data-es="Agendar por WhatsApp" data-en="Book via WhatsApp">Agendar por WhatsApp</a>
+      <a class="btn-secundario" href="#servicios" data-es="Ver servicios" data-en="View services">Ver servicios</a>
+    </div>
+
+    <div class="hero-stats">
+      <div class="stat">
+        <strong>+8</strong>
+        <small data-es="Años de experiencia" data-en="Years of experience">Años de experiencia</small>
+      </div>
+      <div class="stat">
+        <strong>CES</strong>
+        <small data-es="Universidad" data-en="University">Universidad</small>
+      </div>
+      <div class="stat">
+        <strong>Particular</strong>
+        <small data-es="Póliza Sura" data-en="Sura Insurance">Póliza Sura</small>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-foto">
+    <img src="Fotos/Retrato.JPG" alt="Dr. Esteban Uribe Bojanini" />
+  </div>
+</section>
+
+
+<!-- ══════════════════════════ SERVICIOS ══════════════════════════ -->
+<section id="servicios">
+  <div class="servicios-intro">
+    <span class="etiqueta" data-es="02 / Servicios" data-en="02 / Services">02 / Servicios</span>
+    <h2 data-es="Áreas de especialidad" data-en="Areas of expertise">Áreas de especialidad</h2>
+    <p data-es="Atención dermatológica integral con tecnología de vanguardia y un enfoque personalizado para cada paciente." data-en="Comprehensive dermatological care with cutting-edge technology and a personalized approach for each patient.">Atención dermatológica integral con tecnología de vanguardia y un enfoque personalizado para cada paciente.</p>
+  </div>
+
+  <div class="grid-servicios-nuevo">
+
+    <div class="servicio-columna">
+      <span class="servicio-num">01</span>
+      <h3 data-es="Dermatología<br>Anti-Envejecimiento" data-en="Anti-Aging<br>Dermatology">Dermatología<br>Anti-Envejecimiento</h3>
+      <p data-es="Tratamientos especializados para rejuvenecer y revitalizar la piel combinando tecnología de vanguardia con procedimientos mínimamente invasivos, adaptados a cada paciente." data-en="Specialized treatments to rejuvenate and revitalize the skin, combining cutting-edge technology with minimally invasive procedures tailored to each patient.">Tratamientos especializados para rejuvenecer y revitalizar la piel combinando tecnología de vanguardia con procedimientos mínimamente invasivos, adaptados a cada paciente.</p>
+      <ul class="servicio-lista">
+        <li data-es="Toxina botulínica (Botox)" data-en="Botulinum toxin (Botox)">Toxina botulínica (Botox)</li>
+        <li data-es="Estimuladores de colágeno: Sculptra, HarmonyCa" data-en="Collagen stimulators: Sculptra, HarmonyCa">Estimuladores de colágeno: Sculptra, HarmonyCa</li>
+        <li data-es="Ácido hialurónico y rellenos" data-en="Hyaluronic acid and fillers">Ácido hialurónico y rellenos</li>
+        <li data-es="Peelings químicos" data-en="Chemical peels">Peelings químicos</li>
+        <li data-es="Mesoterapia facial y capilar" data-en="Facial and scalp mesotherapy">Mesoterapia facial y capilar</li>
+        <li data-es="Nanopore y bioestimuladores" data-en="Nanopore and biostimulators">Nanopore y bioestimuladores</li>
+        <li data-es="Casco capilar" data-en="Hair helmet therapy">Casco capilar</li>
+        <li data-es="Limpieza facial profunda" data-en="Deep facial cleansing">Limpieza facial profunda</li>
+      </ul>
+    </div>
+
+    <div class="servicio-columna">
+      <span class="servicio-num">02</span>
+      <h3 data-es="Dermatología<br>Clínica" data-en="Clinical<br>Dermatology">Dermatología<br>Clínica</h3>
+      <p data-es="Diagnóstico y tratamiento de condiciones dermatológicas con enfoque integral y basado en evidencia, desde afecciones comunes hasta patologías complejas." data-en="Diagnosis and treatment of dermatological conditions with a comprehensive, evidence-based approach, from common conditions to complex pathologies.">Diagnóstico y tratamiento de condiciones dermatológicas con enfoque integral y basado en evidencia, desde afecciones comunes hasta patologías complejas.</p>
+      <ul class="servicio-lista">
+        <li data-es="Acné y rosácea" data-en="Acne and rosacea">Acné y rosácea</li>
+        <li data-es="Dermatitis" data-en="Dermatitis">Dermatitis</li>
+        <li data-es="Alopecia y caída del cabello" data-en="Alopecia and hair loss">Alopecia y caída del cabello</li>
+        <li data-es="Manchas y despigmentación" data-en="Spots and depigmentation">Manchas y despigmentación</li>
+        <li data-es="Revisión de lunares y lesiones" data-en="Mole and lesion review">Revisión de lunares y lesiones</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════ GALERÍA FOTOS ══════════════════════════ -->
+<div class="foto-strip">
+  <div class="foto-strip-item"><img src="Fotos/Botox.JPG" alt="" /></div>
+  <div class="foto-strip-item"><img src="Fotos/casmara.jpg" alt="" /></div>
+  <div class="foto-strip-item"><img src="Fotos/Clinica.JPG" alt="" /></div>
+  <div class="foto-strip-item"><img src="Fotos/skinlight.jpg" alt="" /></div>
+  <div class="foto-strip-item"><img src="Fotos/Fixer.JPG" alt="" /></div>
+</div>
+
+
+<!-- ══════════════════════════ RESULTADOS ══════════════════════════ -->
+<section id="resultados">
+  <div class="resultados-intro">
+    <span class="etiqueta" data-es="03 / Resultados" data-en="03 / Results">03 / Resultados</span>
+    <h2 data-es="Casos de éxito reales" data-en="Real success stories">Casos de éxito reales</h2>
+    <p data-es="Cada tratamiento es único. Aquí compartimos algunos de los resultados obtenidos con nuestros pacientes, siempre con su autorización." data-en="Every treatment is unique. Here we share some of the results achieved with our patients, always with their consent.">Cada tratamiento es único. Aquí compartimos algunos de los resultados obtenidos con nuestros pacientes, siempre con su autorización.</p>
+  </div>
+
+  <div class="galeria-resultados">
+    <div class="resultado-item">
+      <img src="Fotos/Resultados/Acne1.JPG" alt="Resultado acné 1" />
+      <div class="resultado-label" data-es="Acné" data-en="Acne">Acné</div>
+    </div>
+    <div class="resultado-item">
+      <img src="Fotos/Resultados/Acne2.PNG" alt="Resultado acné 2" />
+      <div class="resultado-label" data-es="Acné" data-en="Acne">Acné</div>
+    </div>
+    <div class="resultado-item">
+      <img src="Fotos/Resultados/Alopecia2.JPG" alt="Resultado alopecia 2" />
+      <div class="resultado-label" data-es="Alopecia" data-en="Alopecia">Alopecia</div>
+    </div>
+    <div class="resultado-item">
+      <img src="Fotos/Resultados/Alopecia3.PNG" alt="Resultado alopecia 3" />
+      <div class="resultado-label" data-es="Alopecia" data-en="Alopecia">Alopecia</div>
+    </div>
+    <div class="resultado-item">
+      <img src="Fotos/Resultados/Alopecia4.JPG" alt="Resultado alopecia 4" />
+      <div class="resultado-label" data-es="Alopecia" data-en="Alopecia">Alopecia</div>
+    </div>
+  </div>
+
+  <div class="resultados-nota">
+    <p data-es="Los resultados pueden variar según cada paciente. Para más información sobre casos y resultados, consúltenos directamente por WhatsApp." data-en="Results may vary for each patient. For more information on cases and results, contact us directly via WhatsApp.">Los resultados pueden variar según cada paciente. Para más información sobre casos y resultados, consúltenos directamente por WhatsApp.</p>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════ SOBRE EL DOCTOR ══════════════════════════ -->
+<section id="sobre">
+  <div class="sobre-foto">
+    <img src="Fotos/Block.JPG" alt="Dr. Esteban Uribe Bojanini - Consultorio" />
+  </div>
+
+  <div class="sobre-texto">
+    <span class="etiqueta" data-es="04 / El Doctor" data-en="04 / The Doctor">04 / El Doctor</span>
+    <h2 data-es="El especialista" data-en="The specialist">El especialista</h2>
+    <p class="sobre-nombre">Dr. Esteban Uribe Bojanini</p>
+
+    <p data-es="Médico dermatólogo egresado de la Universidad CES en Medellín. Con más de 8 años de experiencia en dermatología clínica y estética, ofrece una atención personalizada, con diagnóstico riguroso y tratamientos de alta calidad." data-en="Dermatologist graduated from Universidad CES in Medellín. With over 8 years of experience in clinical and aesthetic dermatology, he offers personalized care, rigorous diagnosis, and high-quality treatments.">Médico dermatólogo egresado de la Universidad CES en Medellín. Con más de 8 años de experiencia en dermatología clínica y estética, ofrece una atención personalizada, con diagnóstico riguroso y tratamientos de alta calidad.</p>
+
+    <p data-es="Su enfoque integral combina la medicina basada en evidencia con las más modernas técnicas en procedimientos estéticos, garantizando resultados naturales y seguros para cada paciente." data-en="His comprehensive approach combines evidence-based medicine with the latest techniques in aesthetic procedures, ensuring natural and safe results for every patient.">Su enfoque integral combina la medicina basada en evidencia con las más modernas técnicas en procedimientos estéticos, garantizando resultados naturales y seguros para cada paciente.</p>
+
+    <div class="sobre-credenciales">
+      <div class="credencial" data-es="Médico dermatólogo — Universidad CES, Medellín" data-en="Dermatologist — Universidad CES, Medellín">Médico dermatólogo — Universidad CES, Medellín</div>
+      <div class="credencial" data-es="Más de 8 años de experiencia clínica" data-en="Over 8 years of clinical experience">Más de 8 años de experiencia clínica</div>
+      <div class="credencial" data-es="Atención con Sura y pacientes particulares" data-en="Sura insurance and private patients">Atención con Sura y pacientes particulares</div>
+      <div class="credencial" data-es="Consultas en Medellín, Colombia" data-en="Consultations in Medellín, Colombia">Consultas en Medellín, Colombia</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════ INSTAGRAM ══════════════════════════ -->
+<section id="instagram" style="background: var(--blanco); padding: 80px 5%;">
+  <div style="max-width: 600px; margin-bottom: 2.5rem;">
+    <span class="etiqueta" data-es="@ubderma en Instagram" data-en="@ubderma on Instagram">@ubderma en Instagram</span>
+    <h2 data-es="Síguenos en Instagram" data-en="Follow us on Instagram">Síguenos en Instagram</h2>
+  </div>
+
+  <!-- ▼ BEHOLD INSTAGRAM WIDGET ▼ -->
+  <behold-widget feed-id="zBBe7lVZy2HWfahT0fcb"></behold-widget>
+  <script>
+    (() => {
+      const d=document,s=d.createElement("script");s.type="module";
+      s.src="https://w.behold.so/widget.js";d.head.append(s);
+    })();
+  </script>
+  <!-- ▲ FIN BEHOLD ▲ -->
+
+  <div style="margin-top: 2rem; text-align: center;">
+    <a href="https://www.instagram.com/ubderma/" target="_blank"
+       style="display: inline-flex; align-items: center; gap: 0.6rem; color: var(--gris); font-size: 0.88rem; text-decoration: none; border-bottom: 1px solid #ddd; padding-bottom: 0.2rem; transition: color .2s, border-color .2s;"
+       onmouseover="this.style.color='var(--acento)'; this.style.borderColor='var(--acento)'"
+       onmouseout="this.style.color='var(--gris)'; this.style.borderColor='#ddd'">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+        <circle cx="12" cy="12" r="4"/>
+        <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+      </svg>
+      <span data-es="Ver perfil completo en Instagram" data-en="View full Instagram profile">Ver perfil completo en Instagram</span>
+    </a>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════ CONTACTO ══════════════════════════ -->
+<section id="contacto">
+  <span class="etiqueta" style="color:#444;" data-es="05 / Agendar cita" data-en="05 / Book appointment">05 / Agendar cita</span>
+  <h2 data-es="¿Listo para tu consulta?" data-en="Ready for your consultation?">¿Listo para tu consulta?</h2>
+  <p data-es="Agenda tu cita directamente por WhatsApp. Respondemos rápido y buscamos el horario que mejor se adapte a ti." data-en="Book your appointment directly via WhatsApp. We respond quickly and find the schedule that works best for you.">Agenda tu cita directamente por WhatsApp. Respondemos rápido y buscamos el horario que mejor se adapte a ti.</p>
+
+  <a class="btn-whatsapp"
+     href="https://api.whatsapp.com/send?phone=573138985232&text=Hola,%20quisiera%20agendar%20una%20cita."
+     target="_blank">
+    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+    <span data-es="Agendar por WhatsApp" data-en="Book via WhatsApp">Agendar por WhatsApp</span>
+  </a>
+
+  <div class="contacto-info">
+    <div class="contacto-dato">
+      <strong data-es="Teléfono" data-en="Phone">Teléfono</strong>
+      +57 313 898 5232
+    </div>
+    <div class="contacto-dato">
+      <strong data-es="Ciudad" data-en="City">Ciudad</strong>
+      Medellín, Colombia
+    </div>
+    <div class="contacto-dato">
+      <strong data-es="Seguros" data-en="Insurance">Seguros</strong>
+      Sura · Particular
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════ FOOTER ══════════════════════════ -->
+<footer>
+  <span class="footer-logo">Uribe <em>Bojanini</em></span>
+  <p data-es="© 2024 Dr. Esteban Uribe Bojanini · Dermatólogo Medellín" data-en="© 2024 Dr. Esteban Uribe Bojanini · Dermatologist Medellín">© 2024 Dr. Esteban Uribe Bojanini · Dermatólogo Medellín</p>
+  <p data-es="Todos los derechos reservados" data-en="All rights reserved">Todos los derechos reservados</p>
+</footer>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-cerrar" id="lb-cerrar">✕</button>
+  <button class="lightbox-nav lightbox-prev" id="lb-prev">&#8249;</button>
+  <img src="" id="lb-img" alt="Resultado ampliado" />
+  <button class="lightbox-nav lightbox-next" id="lb-next">&#8250;</button>
+</div>
+
+<script>
+  // ── Lightbox ──
+  const items = document.querySelectorAll('.resultado-item img');
+  const lb    = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lb-img');
+  let idx = 0;
+
+  function abrir(i) { idx = i; lbImg.src = items[idx].src; lb.classList.add('activo'); }
+  function cerrar() { lb.classList.remove('activo'); }
+  function prev()   { idx = (idx - 1 + items.length) % items.length; lbImg.src = items[idx].src; }
+  function next()   { idx = (idx + 1) % items.length; lbImg.src = items[idx].src; }
+
+  items.forEach((img, i) => img.parentElement.addEventListener('click', () => abrir(i)));
+  document.getElementById('lb-cerrar').addEventListener('click', cerrar);
+  document.getElementById('lb-prev').addEventListener('click', prev);
+  document.getElementById('lb-next').addEventListener('click', next);
+  lb.addEventListener('click', e => { if (e.target === lb) cerrar(); });
+  document.addEventListener('keydown', e => {
+    if (!lb.classList.contains('activo')) return;
+    if (e.key === 'Escape') cerrar();
+    if (e.key === 'ArrowLeft') prev();
+    if (e.key === 'ArrowRight') next();
+  });
+
+  // ── Traductor ──
+  let idioma = 'es';
+  const btnIdioma = document.getElementById('btn-idioma');
+
+  function traducir(lang) {
+    document.querySelectorAll('[data-es][data-en]').forEach(el => {
+      const texto = el.getAttribute('data-' + lang);
+      if (texto) el.innerHTML = texto;
+    });
+    btnIdioma.textContent = lang === 'es' ? 'Español / Inglés' : 'English / Español';
+    document.documentElement.lang = lang === 'es' ? 'es' : 'en';
+  }
+
+  btnIdioma.addEventListener('click', () => {
+    idioma = idioma === 'es' ? 'en' : 'es';
+    traducir(idioma);
+  });
+</script>
+</body>
+</html>
