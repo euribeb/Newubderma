@@ -21,7 +21,7 @@
 
     /* ── Tipografía ── */
     h1, h2, h3 { font-family: var(--fuente); font-weight: 400; line-height: 1.2; }
-    h1 { font-size: clamp(2rem, 4vw, 3.4rem); }
+    h1 { font-size: clamp(2.2rem, 5vw, 4rem); }
     h2 { font-size: clamp(1.6rem, 3vw, 2.8rem); }
     h3 { font-size: 1.25rem; }
     p  { line-height: 1.7; color: var(--gris); }
@@ -60,23 +60,22 @@
 
     /* ── Hero ── */
     #inicio {
-      height: 100vh;
+      min-height: 100vh;
       background: var(--negro);
       display: grid;
       grid-template-columns: 1fr 1fr;
       align-items: center;
-      gap: 0;
       padding-top: 60px;
-      box-sizing: border-box;
+      gap: 0;
     }
     .hero-texto {
-      padding: 40px 5% 40px 5%;
+      padding: 80px 5% 80px 5%;
     }
     .hero-etiqueta { color: #666; }
     .hero-texto h1 { color: var(--blanco); margin-bottom: 1.2rem; }
     .hero-texto h1 em { color: var(--acento); }
     .hero-texto p { color: #999; max-width: 480px; margin-bottom: 2rem; font-size: 1.05rem; }
-    .hero-botones { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 2rem; }
+    .hero-botones { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 3rem; }
     .btn-principal {
       background: var(--acento); color: var(--blanco);
       text-decoration: none; padding: 0.85rem 1.8rem;
@@ -95,7 +94,7 @@
     .stat span   { display: block; color: #555; font-size: 0.72rem; }
 
     .hero-foto {
-      height: 100%;
+      height: 100vh;
       overflow: hidden;
       position: relative;
     }
