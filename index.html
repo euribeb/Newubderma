@@ -64,11 +64,14 @@
       background: var(--negro);
       display: grid;
       grid-template-columns: 1fr 1fr;
-      align-items: center;
+      align-items: stretch;
       gap: 0;
     }
     .hero-texto {
-      padding: 100px 5% 60px 5%;
+      padding: 100px 5% 40px 5%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
     .hero-etiqueta { color: #666; }
     .hero-texto h1 { color: var(--blanco); margin-bottom: 1.2rem; }
@@ -93,7 +96,8 @@
     .stat span   { display: block; color: #555; font-size: 0.72rem; }
 
     .hero-foto {
-      height: 100vh;
+      height: 100%;
+      min-height: 100vh;
       overflow: hidden;
       position: relative;
     }
